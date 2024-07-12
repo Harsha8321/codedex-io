@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ sport }} Insights</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        body {
+            background-color: #c9d6ff;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            flex-direction: column;
+            overflow: auto;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+            width: 100%;
+            max-width: 2350px;
+            padding: 40px;
+            margin: 20px;
+            position: relative;
+        }
+        .dashboard-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .dashboard-header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr); /* 3 columns per row */
+            gap: 20px;
+            justify-content: center;
+        }
+        .image-container div {
+            text-align: center;
+        }
+        .image-container img {
+            width: 100%;
+            max-width: 1300px; /* Increase the max-width */
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .image-container p {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .image-container .spacer {
+            content: '';
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>{{ sport }} Insights</h1>
+        </div>
+        <div class="image-container">
+            <div>
+                <img src="{{ url_for('static', filename='images/' + sport + '_plot01.png') }}" alt="Plot 1">
+                <p><b>Plot 1</b></p>
+            </div><br>
+            <div>
+                <img src="{{ url_for('static', filename='images/' + sport + '_plot02.png') }}" alt="Plot 2">
+                <p><b>Plot 2</b></p>
+            </div><br>
+            <div>
+                <img src="{{ url_for('static', filename='images/' + sport + '_plot03.png') }}" alt="Plot 3">
+                <p><b>Plot 3</b></p>
+            </div><br>
+            <div>
+                <img src="{{ url_for('static', filename='images/' + sport + '_plot04.png') }}" alt="Plot 4">
+                <p><b>Plot 4</b></p>
+            </div><br>
+            <div>
+                <img src="{{ url_for('static', filename='images/' + sport + '_plot05.png') }}" alt="Plot 5">
+                <p><b>Plot 5</b></p><br>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='images/' + sport + '_plot06.png') }}" alt="Plot 6">
+                <p><b>Plot 6</b></p>
+            </div><br>
+            <div>
+                <img src="{{ url_for('static', filename='images/' + sport + '_plot07.png') }}" alt="Plot 7">
+                <p><b>Plot 7</b></p>
+            </div><br>
+            <div>
+                <img src="{{ url_for('static', filename='images/' + sport + '_plot08.png') }}" alt="Plot 8">
+                <p><b>Plot 8</b></p>
+            </div><br>
+            <!-- Spacer divs to center the last row if it has less than 3 items -->
+            <div class="spacer"></div>
+            <div class="spacer"></div>
+        </div>
+    </div>
+</body>
+</html>

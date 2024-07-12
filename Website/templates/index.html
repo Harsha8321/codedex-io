@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlayStats Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        body {
+            background-color: #c9d6ff;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+            overflow: auto;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+            width: 96%;
+            max-width: 1730px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        .dashboard-header {
+            margin-bottom: 40px;
+        }
+        .dashboard-header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .dashboard-content {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            overflow-y: auto;
+        }
+        .dropdown-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .dropdown-container h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .dropdown-container select, .dropdown-container input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-width: 600px;
+        }
+        .dropdown-list {
+            position: absolute;
+            top: 80px;
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+            z-index: 10;
+        }
+        .dropdown-list div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .dropdown-list div:hover {
+            background-color: #eee;
+        }
+        .separator {
+            width: 100%;
+            max-width: 600px;
+            height: 1px;
+            background-color: #ccc;
+            margin: 20px 0;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .action-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .action-button:hover {
+            background-color: #45a049;
+        }
+        .login-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        .login-button:hover {
+            background-color: #0069D9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if user_name %}
+            <button class="login-button">{{ user_name }}</button>
+        {% else %}
+            <button class="login-button" onclick="window.location.href='/login'">Login / Sign In</button>
+        {% endif %}
+        <div class="dashboard-header">
+            <h1>PlayStats Dashboard</h1>
+            <p>Uncover in-depth insights and stats on the game you love the most!</p>
+            <div class="separator"></div>
+        </div><br>
+        <div class="dropdown-container">
+            <h2>Discover and Explore Olympic Sports:</h2>
+            <input type="text" id="searchInput" placeholder="Search for a sport..." onkeyup="filterFunction()">
+            <div id="dropdown" class="dropdown-list"></div>
+        </div>
+        <form id="actionForm" action="" method="get">
+            <input type="hidden" id="selectedSport" name="sport">
+            <div class="action-buttons">
+                <button type="button" class="action-button" onclick="submitForm('/generate_graphs')">Get Insights!</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const sports = [
+            "Archery", "Athletics", "Badminton", "Baseball/Softball", "Basketball", "Boxing",
+            "Canoeing", "Cycling", "Diving", "Equestrian", "Fencing", "Field Hockey",
+            "Football (Soccer)", "Golf", "Gymnastics", "Handball", "Judo", "Karate",
+            "Modern Pentathlon", "Rowing", "Rugby Sevens", "Sailing", "Shooting", "Skateboarding",
+            "Sport Climbing", "Surfing", "Swimming", "Table Tennis", "Taekwondo", "Tennis",
+            "Triathlon", "Volleyball", "Weightlifting", "Wrestling", "Alpine Skiing", "Biathlon",
+            "Bobsleigh", "Cross-Country Skiing", "Curling", "Figure Skating", "Freestyle Skiing",
+            "Ice Hockey", "Luge", "Nordic Combined", "Short Track Speed Skating", "Skeleton",
+            "Ski Jumping", "Snowboarding", "Speed Skating"
+        ];
+
+        const dropdown = document.getElementById('dropdown');
+        const searchInput = document.getElementById('searchInput');
+        const selectedSportInput = document.getElementById('selectedSport');
+        const actionForm = document.getElementById('actionForm');
+
+        function populateDropdown() {
+            dropdown.innerHTML = '';
+            sports.forEach(sport => {
+                const sportItem = document.createElement('div');
+                sportItem.textContent = sport;
+                sportItem.onclick = () => selectSport(sport);
+                dropdown.appendChild(sportItem);
+            });
+        }
+
+        function filterFunction() {
+            const filter = searchInput.value.toLowerCase();
+            const divs = dropdown.getElementsByTagName('div');
+            let visibleCount = 0;
+
+            for (let i = 0; i < divs.length; i++) {
+                const txtValue = divs[i].textContent || divs[i].innerText;
+                if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                    divs[i].style.display = "";
+                    visibleCount++;
+                } else {
+                    divs[i].style.display = "none";
+                }
+            }
+
+            dropdown.style.display = visibleCount > 0 ? "block" : "none";
+        }
+
+        function selectSport(sport) {
+            searchInput.value = sport;
+            selectedSportInput.value = sport;
+            dropdown.style.display = "none";
+        }
+
+        function submitForm(action) {
+            actionForm.action = action;
+            actionForm.submit();
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('#searchInput')) {
+                dropdown.style.display = "none";
+            }
+        }
+
+        searchInput.onclick = function() {
+            dropdown.style.display = "block";
+        }
+
+        document.addEventListener('DOMContentLoaded', populateDropdown);
+    </script>
+</body>
+</html>
