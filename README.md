@@ -1,5 +1,5 @@
 
-# PlayStats
+# PlayStats Dashboard
 
 ## What It Does
 
