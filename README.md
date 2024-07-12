@@ -1,6 +1,4 @@
-Sure, I'll create a concise README file that outlines what has been done so far.
 
----
 
 # Sports Insights Dashboard
 
