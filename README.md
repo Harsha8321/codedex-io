@@ -1,9 +1,5 @@
 
-# Sports Insights Dashboard
-
-## What’s Up
-
-Welcome to the Sports Insights Dashboard! 🎉 This is your go-to place for all the deets on Olympic sports, their history, and how different regions and cities have performed over the years.
+# PlayStats
 
 ## What It Does
 
@@ -18,6 +14,7 @@ Welcome to the Sports Insights Dashboard! 🎉 This is your go-to place for all 
 - **Sports**: Every sport that’s ever been in the Olympics. 🏀🥋⛷️
 - **Regions**: All the regions that throw down in the Olympics.
 - **Teams**: A comprehensive list of teams that have competed.
+- **Dataset**: [120 Years of Olympic History: Athletes and Results](https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results?resource=download).
 
 ### 2. Data Wrangling
 
@@ -28,8 +25,8 @@ Welcome to the Sports Insights Dashboard! 🎉 This is your go-to place for all 
 
 - Built a slick web app with Flask:
   - `index.html`: Your starting point. Shows all the sports.
-  - `sport_detail.html`: Dive deep into each sport.
-  - `dashboard.html`: Overview with key insights and highlights.
+  - `login.html`: Secure login page for accessing the dashboard.
+  - `view_insights.html`: Overview with key insights and highlights.
 
 ### 4. Visual Treats
 
@@ -38,29 +35,8 @@ Welcome to the Sports Insights Dashboard! 🎉 This is your go-to place for all 
 
 ### 5. Prediction Power
 
-- We’ve got a Random Forest Classifier ready to predict some future sports action. 🌟
+- I’ve got a Random Forest Classifier ready to predict some future sports action. 🌟
 - Not integrated into the web app yet, but you can check out the `notebook.ipynb` file for all the juicy details and code.
-
-## How to Get Started
-
-1. **Clone the Repo**
-   ```bash
-   git clone https://github.com/your-repository/sports-insights-dashboard.git
-   cd sports-insights-dashboard
-   ```
-
-2. **Install the Goods**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run It**
-   ```bash
-   flask run
-   ```
-
-4. **Check It Out**
-   - Open your browser and go to `http://127.0.0.1:5000` to see the magic happen.
 
 ## What’s Next
 
@@ -71,6 +47,5 @@ Welcome to the Sports Insights Dashboard! 🎉 This is your go-to place for all 
 ## Squad
 
 - Harshan 💪
-
 
 Feel free to tweak it further to match your style!
