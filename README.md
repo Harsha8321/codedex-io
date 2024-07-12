@@ -13,7 +13,7 @@
 - **Cities**: We've got a list of cities that have hosted the Olympics. Pretty lit, right?
 - **Sports**: Every sport that’s ever been in the Olympics. 🏀🥋⛷️
 - **Regions**: All the regions that throw down in the Olympics.
-- **Teams**: A comprehensive list of teams that have competed.
+- **Teams**: A comprehensive list of teams that have competed. and More....,
 - **Dataset**: [120 Years of Olympic History: Athletes and Results](https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results?resource=download).
 
 ### 2. Data Wrangling
@@ -45,7 +45,6 @@
 - Make the UI even more 🔥 for a better user experience.
 
 ## Squad
-
-- Harshan 💪
+- Harsh 💪
 
 Feel free to tweak it further to match your style!
